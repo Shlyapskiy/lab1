@@ -42,6 +42,21 @@ function вибрати_за_запитом($масив, $запит) {
 
     return $результат;
 }
+function зберегти_у_файл($масив, $імя_файлу) {
+    $серіалізований_масив = serialize($масив);
+    file_put_contents($імя_файлу, $серіалізований_масив);
+}
+
+function завантажити_з_файлу($імя_файлу) {
+    if (file_exists($імя_файлу)) {
+        $серіалізований_масив = file_get_contents($імя_файлу);
+        return unserialize($серіалізований_масив);
+    } else {
+        return [];
+    }
+}
+
+$objects = завантажити_з_файлу('objects_data.txt');
 
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] === "GET") {
     $запит = [
